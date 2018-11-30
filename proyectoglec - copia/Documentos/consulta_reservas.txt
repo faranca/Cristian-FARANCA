@@ -1,0 +1,4 @@
+set @hi = '08:00';
+set @hf = '09:30';
+
+select * from reserva where fecha_reserva = '2018-11-03' and (hora_desde <= '08:30' and hora_hasta >= '09:30' or hora_desde <= '09:30' and hora_hasta >= '09:30' or hora_desde > '08:30' and hora_hasta < '09:30');

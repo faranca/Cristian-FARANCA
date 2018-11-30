@@ -1,0 +1,37 @@
+ul{
+  margin-left:0px;
+  padding-left: 0px; 
+  padding-top: 0px;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  transition: width 1s;
+  width: 50px;
+}
+
+ul:hover + a{
+  width: 300px;
+  display: none;
+}
+li{
+  list-style: none;
+  margin-top: 0px;
+}
+
+.item{
+  background-color: blue;
+  color: white;
+  height: 60px;
+}
+
+.item img{
+  width: 30px;
+  height: 30px;
+}
+
+.item a{
+  color: white;
+  text-align: right;
+  padding-left: 30px;
+  text-decoration: none;
+}

@@ -1,0 +1,290 @@
+﻿-CREAR EMPLADO:
+		public function CrearEmplado($nombre, $apellido, $fecha_nacimiento, $dni, $usuario, $clave, $email){
+				if($nombre=="") throw new Exception('error');
+
+				if($apellido=="") throw new Exception('error');
+
+				if($fecha_nacimiento=="") throw new Exception('error');
+				$anio= substr($fecha_nacimiento,0,4);
+				$mes= substr($fecha_nacimiento,5,2);
+				$dia= substr($fecha_nacimiento,8,2);	
+				if(!checkdate ($mes ,$dia ,$anio )) throw new Exception('error');
+
+				if($dni=="") throw new Exception('error');
+				if($dni<"1") throw new Exception('error');
+				if(!ctype_digit($dni)) throw new Exception('error');
+
+				if($usuario=="") throw new Exception('error');
+
+				if($clave=="") throw new Exception('error');
+
+				if($email=="") throw new Exception('error');
+
+				$this->db->query(INSERT INTO `usuario` (`idpersona`, `nombre`, `apellido`, `fecha_nacimiento`, `dni`, `esAdmin`, `usuario`, `clave`, `email`, `discontinuado`) VALUES (NULL, $nombre, $apellido, $fecha_nacimiento, $dni, b'1', $usuario, $clave, $email, '0');
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+-CREAR SOCIO
+
+public function CrearSocio($nombre, $apellido, $fecha_nacimiento, $dni, $usuario, $clave, $email){
+				if($nombre=="") throw new Exception('error');
+
+				if($apellido=="") throw new Exception('error');
+
+				if($fecha_nacimiento=="") throw new Exception('error');
+				$anio= substr($fecha_nacimiento,0,4);
+				$mes= substr($fecha_nacimiento,5,2);
+				$dia= substr($fecha_nacimiento,8,2);	
+				if(!checkdate ($mes ,$dia ,$anio )) throw new Exception('error');
+
+				if($dni=="") throw new Exception('error');
+				if($dni<"1") throw new Exception('error');
+				if(!ctype_digit($dni)) throw new Exception('error');
+
+				if($usuario=="") throw new Exception('error');
+
+				if($clave=="") throw new Exception('error');
+
+				if($email=="") throw new Exception('error');
+
+				$this->db->query("INSERT INTO `usuario` (`idpersona`, `nombre`, `apellido`, `fecha_nacimiento`, `dni`, `esAdmin`, `usuario`, `clave`, `email`, `discontinuado`) VALUES ((NULL, $nombre, $apellido, $fecha_nacimiento, $dni, b'0', $usuario, $clave, $email, '0')");
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+BUSCAR RESERVA
+
+public function BuscarReserva($Hdesde, $Hhasta, $fecha_reserva, $idcategoria){
+
+				if($Hdesde=="") throw new Exception('error');
+				if($Hdesde<"0") throw new Exception('error');
+				if($Hdesde>"23") throw new Exception('error');
+				if(!ctype_digit($Hdesde)) throw new Exception('error');
+
+				if($Hhasta=="") throw new Exception('error');
+				if($Hhasta<"0") throw new Exception('error');
+				if($Hhasta>"23") throw new Exception('error');
+				if(!ctype_digit($Hhasta)) throw new Exception('error');
+
+				if($fecha_reserva=="") throw new Exception('error');
+				$anio= substr($fecha_reserva,0,4);
+				$mes= substr($fecha_reserva,5,2);
+				$dia= substr($fecha_reserva,8,2);	
+				if(!checkdate ($mes ,$dia ,$anio )) throw new Exception('error');
+
+				if($idcategoria=="") throw new Exception('error');
+				if($idcategoria<"0") throw new Exception('error');
+				if(!ctype_digit($idcategoria)) throw new Exception('error');
+
+
+				$this->db->query("SELECT * FROM `reserva` WHERE `cancha_categoria_idcategoria` = $idcategoria AND `fecha_reserva` = $fecha_reserva AND `Hdesde` >= $Hdesde AND `Hhasta` <= $Hhasta");
+
+CREAR RESERVA
+
+public function CrearReserva($nombre, $adelanto, $idcancha, $idcategoria, $idcobro, $fecha_reserva, $Hdesde, $Hhasta){
+
+				if($nombre=="") throw new Exception('error');
+
+				if($adelanto=="") throw new Exception('error');
+				if($adelanto<"0") throw new Exception('error');
+				if(!ctype_digit($adelanto)) throw new Exception('error');				
+
+				if($idcancha=="") throw new Exception('error');
+				if($idcancha<"0") throw new Exception('error');
+				if(!ctype_digit($idcancha)) throw new Exception('error');
+				
+				if($idcategoria=="") throw new Exception('error');
+				if($idcategoria<"0") throw new Exception('error');
+				if(!ctype_digit($idcategoria)) throw new Exception('error');
+				
+				if($idcobro=="") throw new Exception('error');
+				if($idcobro<"0") throw new Exception('error');
+				if(!ctype_digit($idcobro)) throw new Exception('error');
+
+				if($fecha_reserva=="") throw new Exception('error');
+				$anio= substr($fecha_reserva,0,4);
+				$mes= substr($fecha_reserva,5,2);
+				$dia= substr($fecha_reserva,8,2);	
+				if(!checkdate ($mes ,$dia ,$anio )) throw new Exception('error');
+
+				if($Hdesde=="") throw new Exception('error');
+				if($Hdesde<"0") throw new Exception('error');
+				if($Hdesde>"23") throw new Exception('error');
+				if(!ctype_digit($Hdesde)) throw new Exception('error');
+
+				if($Hhasta=="") throw new Exception('error');
+				if($Hhasta<"0") throw new Exception('error');
+				if($Hhasta>"23") throw new Exception('error');
+				if(!ctype_digit($Hhasta)) throw new Exception('error');
+
+
+				$this->db->query("INSERT INTO `reserva` (`idreserva`, `nombre`, `adelanto`, `cancha_idcancha`, `cancha_categoria_idcategoria`, `cobro_idcobro`, `fecha_reserva`, `Hdesde`, `Hhasta`) VALUES ((Select MAX(re2.idreserva)+1 from reserva as re2), $nombre, $adelanto, $idcancha, $idcategoria, $idcobro, $fecha_reserva, $Hdesde, $Hhasta);");
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+-CREAR CANCHA
+
+public function CrearCancha($descripcion, $valor, $iddeporte){
+				
+				if($descripcion=="") throw new Exception('error');
+
+				if($valor=="") throw new Exception('error');
+				if($valor<"0") throw new Exception('error');
+				if(!ctype_digit($valor)) throw new Exception('error');				
+
+				if($iddeporte=="") throw new Exception('error');
+				if($iddeporte<"0") throw new Exception('error');
+				if(!ctype_digit($iddeporte)) throw new Exception('error');
+				
+
+				$this->db->query("INSERT INTO `cancha` (`idcancha`, `descripcion`, `valor`, `deporte_idcategoria`) VALUES (NULL, $descripcion, $valor, $iddeporte), NULL");
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+-CREAR DEPORTE
+
+public function CrearDeporte($descripcion){
+				
+				if($descripcion=="") throw new Exception('error');
+
+
+				$this->db->query("INSERT INTO `deporte` (`iddeporte`, `descripcion`, `discontinuado`) VALUES (NULL, $descripcion, NULL)");
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+(vCaja.php)
+-VER SI CAJA ESTA CERRADA
+
+public function BuscarCajaAbierta(){
+
+				$this->db->query("SELECT *  FROM `caja` WHERE `idcaja` = (Select MAX(ca2.idcaja) from caja as ca2) AND `fecha_cierre` IS NOT NULL ");
+
+
+-CREAR CAJA 
+
+public function CrearCaja($monto_inicial){
+				
+				if($monto_inicial=="") throw new Exception('error');
+				if($monto_inicial<"0") throw new Exception('error');
+				if(!ctype_digit($monto_inicial)) throw new Exception('error');	
+
+				$hora_apertura= NOW();
+				$hora_apertura= substr($hora_apertura, 12, 8);
+
+				$this->db->query("INSERT INTO `caja` (`monto`, `fecha_apertura`, `hora_apertura`, `fecha_cierre`, `hora_cierre`, `usuario_idpersona`) VALUES ($monto_inicial, NOW(), $hora_apertura, NULL, NULL, $_SESSION['idpersona'])");
+
+-MONTO actual de la caja:
+
+public function CalcularCaja(){
+
+				$this->db->query("SELECT (SELECT SUM(ing.importe) as suma FROM ingreso as ing WHERE ing.caja_idcaja = (Select MAX(ca2.idcaja) from caja as ca2)) as Suma,
+				(SELECT SUM(egr.importe) as resta FROM egreso as egr WHERE egr.caja_idcaja = (Select MAX(ca2.idcaja) from caja as ca2)) as Resta,
+				caj.monto_inicial as Inicio_con
+				FROM caja as caj
+				WHERE caj.idcaja = (Select MAX(ca2.idcaja) from caja as ca2)");
+//retorna Suma, Resta, Inicio_con. Y con eso en PHP se hace la cuenta y te da el monto actual.
+
+
+-CERRAR CAJA
+public function CerrarCaja($monto_final){
+				
+				if($monto_final=="") throw new Exception('error');
+				if($monto_final<"0") throw new Exception('error');
+				if(!ctype_digit($monto_final)) throw new Exception('error');	
+
+				$hora_cierre= NOW();
+				$hora_cierre= substr($hora_cierre, 12, 8);
+
+				$this->db->query("UPDATE `caja` SET `monto_final` = $monto_final, `fecha_cierre` = NOW(), `hora_cierre` = $hora_cierre 
+				WHERE `caja`.`idcaja` = (Select MAX(ca2.idcaja) from caja as ca2))");
+
+
+
+// AGREGAR EN EL LOGIN Q CREE LA VARIABLE $_SESSION['idpersona']=$ìdpersona
+
+-BUSCAR MOVIMIENTOS DE CAJA
+
+public function BuscarMovimientosCaja(){
+				$this->db->query("SELECT *FROM caja as ca1
+				inner join ingreso as ing on ing.caja_idcaja = (Select MAX(ca2.idcaja) from caja as ca2)
+				inner join egreso as egr on egr.caja_idcaja = (Select MAX(ca2.idcaja) from caja as ca2)
+				WHERE ca1.idcaja = egr.caja_idcaja OR ca1.idcaja = ing.caja_idcaja
+				ORDER BY ca1.idcaja ASC");
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+CARGAR INGRESO
+incompleta........
+operacion= (Select MAX(co2.operacion)+1 from cobro as co2 where (Select MAX(ca2.idcaja) from caja as ca2 where ) = idcaja)
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+-vCuota.php
+
+public function BuscarSocio($dato){
+				
+				if($dato=="") throw new Exception('error');
+
+				
+				$this->db->query("SELECT us2.nombre, us2.apellido, us2.dni, act.descripcion, act.precio
+						FROM (SELECT * FROM `usuario` as us1 WHERE us1.`esAdmin` = 0) as us2 
+						inner join inscripcion as ins on ins.usuario_idpersona=us2.idpersona 
+						inner join actividad as act on act.idactividad=ins.actividad_idactividad 
+						WHERE us2.`nombre` LIKE $dato OR us2.`apellido` LIKE $dato OR us2.`dni` LIKE $dato");
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+CREAR TRIGGER para cuota, caja, factura
+
+CREATE TRIGGER ingreso_stock ON producto FOR INSERT AS
+BEGIN 
+	INSERT INTO stock (codigo_producto, cantidad, pto_reposicion)
+	SELECT ins.codigo_producto, 0 , 500 FROM inserted ins
+END 
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+-CREAR INSUMO (idinsumo no es auto incrementada)
+
+public function CrearInsumo($descripcion, $stock, $precio, $deporte){
+				
+				if($descripcion=="") throw new Exception('error');
+
+				if($stock=="") throw new Exception('error');
+				if($stock<"0") throw new Exception('error');
+				if(!ctype_digit($stock)) throw new Exception('error');	
+
+				if($precio=="") throw new Exception('error');
+				if($precio<"0") throw new Exception('error');
+				if(!ctype_digit($precio)) throw new Exception('error');
+
+				if($deporte=="") throw new Exception('error');
+				if($deporte<"0") throw new Exception('error');
+				if(!ctype_digit($deporte)) throw new Exception('error');
+
+				$this->db->query("INSERT INTO `insumo` (`idinsumo`, `descripcion`, `stock`, `precio`, `deporte_iddeporte`, `discontinuado`) VALUES ((Select MAX(in2.idinsumo)+1 from insumo as in2), $descripcion, $stock, $precio, $deporte, NULL)");
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+-CARGAR EGRESO
+
+public function CrearEgreso($importe, $motivo){
+
+				if($importe=="") throw new Exception('error');
+				if($importe<"0") throw new Exception('error');
+				if(!ctype_digit($importe)) throw new Exception('error');
+
+				if($motivo=="") throw new Exception('error');
+
+				$this->db->query("INSERT INTO `egreso` (`idegreso`, `importe`, `motivo`, `fecha`, `caja_idcaja`) VALUES (NULL, $importe, $motivo, NOW(), (Select MAX(ca2.idcaja) from caja as ca2))");
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+ingreso   ultimo_numero deberia ser auto incremental
